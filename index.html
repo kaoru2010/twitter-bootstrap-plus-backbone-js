@@ -12,12 +12,43 @@
     <!-- Optional theme -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
 
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js"></script>
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+<script>
+// モデル定義
+var Customer = Backbone.Model.extend({
+  defaults : {
+    "user_name" : "",
+    "user_name_kana" : "",
+    "tel" : "",
+    "postal_code" : "",
+    "address" : ""
+  },
+  urlRoot : "/demo-service/customers",
+});
+
+$(function() {
+  $("#submit-button").click(function(e) {
+    var customer = new Customer({
+       user_name: $('#user_name').val()
+       user_name_kana: $('#user_name_kana').val()
+       tel: $('#tel').val()
+       postal_code: $('#postal_code').val()
+       address: $('#address').val()
+    });
+    customer.save();
+  });
+});
+</script>
   </head>
   <body>
     <nav class="navbar navbar-default">
@@ -62,12 +93,14 @@
             </div>
 
             <div class="form-group">
+                <button class="btn btn-primary">送信</a>
             </div>
 
         </form>
 
+<!--
               <a data-controls-modal="form-confirmation" data-backdrop="true" href="javascript:void(0)" class="btn btn-primary">送信</a>
-
+-->
         <div class="modal fade" id="form-confirmation" style="display:none;">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -87,8 +120,6 @@
 
     </div>
     <div id="footer">Copyright &copy; 2014 kaoru. All rights reserved.</div>
-
-    <script src="http://code.jquery.com/jquery.js"></script>
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
